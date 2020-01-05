@@ -27,9 +27,12 @@ module.exports = function (api) {
   const plugins = [
     ['module-resolver', {
       root: ['./src'],
+      alias: {
+        'react':'preact/compat'
+      }
     }],
     '@babel/plugin-proposal-class-properties',
-		['babel-plugin-inline-import', {
+    ['babel-plugin-inline-import', {
       'extensions': [
         '.html',
         '.graphql'
@@ -38,7 +41,7 @@ module.exports = function (api) {
     ['add-module-exports'],
   ]
 
-	/* We comment out this part because it's probably better to remove the proptypes in the final react app instead of in the compilation process
+  /* We comment out this part because it's probably better to remove the proptypes in the final react app instead of in the compilation process
   if(isEs || isCjs) { plugins.push(
     [
       'transform-react-remove-prop-types',
