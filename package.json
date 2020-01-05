@@ -1,6 +1,6 @@
 {
   "name": "@fwrlines/utils",
-  "version": "1.0.1-0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/fwrlines/utils"
@@ -29,8 +29,7 @@
     "url": "https://github.com/fwrlines"
   },
   "license": "ISC",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.7.7",
     "@babel/core": "^7.7.7",
