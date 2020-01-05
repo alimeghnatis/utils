@@ -1,0 +1,49 @@
+{
+  "name": "@fwrlines/utils",
+  "version": "1.0.1-0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fwrlines/utils"
+  },
+  "description": "fwrlines Utils",
+  "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
+  "scripts": {
+    "build": "echo",
+    "compile:cjs": "NODE_ENV=cjs babel src/utils --out-dir dist/cjs",
+    "compile:es": "NODE_ENV=es babel src/utils --out-dir dist/es",
+    "build:cjs": "npm run compile:cjs",
+    "build:es": "npm run compile:es",
+    "compile": "npm run pre-compile && npm run build:cjs && npm run build:es",
+    "compile:show": "npm run compile && tree dist",
+    "pre-compile": "rm -rf ./dist",
+    "pub": "npm run commit && npm version patch && npm publish",
+    "prepare": "npm run compile",
+    "commit": "git add . && git commit -m 'Version bump' && git push",
+    "bd": "npm run build && npm run commit "
+  },
+  "keywords": [],
+  "author": {
+    "name": "fwrlines",
+    "email": "adrian@fwrlines.com",
+    "url": "https://github.com/fwrlines"
+  },
+  "license": "ISC",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.7",
+    "@babel/preset-react": "^7.7.4",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-add-module-exports": "^1.0.2",
+    "babel-plugin-inline-import": "^3.0.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0"
+  }
+}
