@@ -27,9 +27,6 @@ module.exports = function (api) {
   const plugins = [
     ['module-resolver', {
       root: ['./src'],
-      alias: {
-        'react':'preact/compat'
-      }
     }],
     '@babel/plugin-proposal-class-properties',
     ['babel-plugin-inline-import', {

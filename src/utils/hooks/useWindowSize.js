@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react'
-import debounce from 'lodash/debounce'
+import debounce from 'lodash.debounce'
 
 export default (
   debounceMs=700

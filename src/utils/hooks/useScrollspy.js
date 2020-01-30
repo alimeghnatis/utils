@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useEffect, useState } from 'react'
-import throttle from 'lodash/throttle'
+import throttle from 'lodash.throttle'
 import useWindowSize from './useWindowSize'
 
 export default (
