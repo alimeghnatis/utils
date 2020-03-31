@@ -1,3 +1,4 @@
+export { default as useDynamicPosition } from './useDynamicPosition'
 export { default as useInterval } from './useInterval'
 export { default as useIsTop } from './useIsTop'
 export { default as useLockBodyScroll } from './useLockBodyScroll'

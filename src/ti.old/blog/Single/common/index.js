@@ -1,6 +1,0 @@
-export { default as AuthorInfo } from './AuthorInfo'
-export { default as Body } from './Body'
-export { default as Breadcrumb } from './Breadcrumb'
-export { default as Header } from './Header'
-export { default as Meta } from './Meta'
-export { default as RelatedArticles } from './RelatedArticles'
