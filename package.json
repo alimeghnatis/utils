@@ -7,7 +7,7 @@
   },
   "description": "fwrlines Utils",
   "main": "dist/cjs/index.js",
-  "module": "src/utils/index.js",
+  "module": "dist/es/index.js",
   "scripts": {
     "build": "echo",
     "compile:cjs": "NODE_ENV=cjs babel src/utils --out-dir dist/cjs",
