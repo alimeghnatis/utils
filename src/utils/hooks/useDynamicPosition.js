@@ -53,6 +53,12 @@ export default (
       }
 
       /*
+      console.log(
+        'TEST',
+        ( ( currentHeight - parentTop - offsetYPx ) >= elHeight )
+
+      )
+
       console.log('the current window size is',
         `H ${currentHeight} W ${currentWidth}`,
         'and the bouding rect is',
@@ -69,13 +75,18 @@ export default (
         'does it fit',
         fits
       )
-        */
+      */
+
       for (const triedPosition of preferredOrder) {
         if (fits[triedPosition]) {
           setPosition(triedPosition)
           break
         }
       }
+      /* Please not the previous loop takes care of an edge case where the popup is to high to fit anywhere
+         In that case, setPosition is not called and the last working position is kept
+         In any case this is not the right hook if the child element has a dynamic height
+         */
 
     }, throttleMs),
     [popupRef, currentHeight, currentWidth]
