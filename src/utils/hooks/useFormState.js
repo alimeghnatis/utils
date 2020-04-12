@@ -74,7 +74,7 @@ export default ({
       (valueSet.has(valueToToggle) ?
         valueSet.delete(valueToToggle) : valueSet.add(valueToToggle)
       )
-    console.warn(97777, valueSet, valueToToggle)
+    //console.warn(97777, valueSet, valueToToggle)
 
     dispatch({
       type:'SET_FIELD_VALUE',
