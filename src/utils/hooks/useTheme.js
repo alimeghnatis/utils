@@ -1,8 +1,6 @@
-import { useCallback, useState, useEffect } from 'react'
-import debounce from 'lodash.debounce'
+import { useState, useEffect } from 'react'
 
 export default (
-  debounceMs=700,
   initialTheme,
 ) => {
   const isClient = typeof window === 'object'
