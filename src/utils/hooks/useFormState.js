@@ -90,6 +90,16 @@ export default ({
   }
   const handleFocus = handleBlur //atm they're the same but lets leave the api evolve
 
+  const setInputTouched = handleFocus
+
+  const setInputValue = fieldName => value => {
+    console.log('SIV', fieldName, value)
+    dispatch({
+      type:'SET_FIELD_VALUE',
+      payload: { [fieldName]:value },
+    })
+  }
+
   const getFieldProps = fieldName => ({
     //Base Api
     value: state.values[fieldName],
@@ -99,7 +109,13 @@ export default ({
 
     //Extra Helpers
     onToggle: handleToggle(fieldName), //for multiple value, replaces onChange
+
+    //Extra Api Control
+    setInputTouched:setInputTouched(fieldName),
+    setInputValue:setInputValue(fieldName)
   })
+
+  console.log('Here in the utils')
 
 
   useEffect(() => {
