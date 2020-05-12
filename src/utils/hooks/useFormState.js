@@ -43,8 +43,8 @@ const reducer = (state, action) => {
 }
 
 export default ({
-  initialValues,
-  initialTouched,
+  initialValues={},
+  initialTouched={},
   ...otherProps
 }) => {
 
@@ -103,6 +103,7 @@ export default ({
   const getFieldProps = fieldName => ({
     //Base Api
     value: state.values[fieldName],
+    touched: state.touched[fieldName],
     onChange: handleChange(fieldName),
     onBlur:handleBlur(fieldName),
     onFocus:handleFocus(fieldName),
@@ -114,9 +115,6 @@ export default ({
     setInputTouched:setInputTouched(fieldName),
     setInputValue:setInputValue(fieldName)
   })
-
-  console.log('Here in the utils')
-
 
   useEffect(() => {
     if (otherProps.validate) {
