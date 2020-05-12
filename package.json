@@ -1,6 +1,6 @@
 {
   "name": "@fwrlines/utils",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/fwrlines/utils"
@@ -48,7 +48,7 @@
     "eslint-plugin-react-hooks": "^3.0.0",
     "nodemon": "^2.0.3"
   },
-  "peerDependencies":{
+  "peerDependencies": {
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "react": "^16.13.1",
