@@ -24,7 +24,7 @@ export default (
       const cookieTheme = cookies.get(cookieName)
       //console.log(cookieTheme, cookieTheme != userTheme)
       if (cookieTheme && (cookieTheme != userTheme)) {
-        console.warn('Theme load')
+        //console.warn('Theme load')
         setPreferredTheme(cookieTheme)
         setUserTheme(cookieTheme)
       }
@@ -35,12 +35,12 @@ export default (
           preferredTheme,
           cookieOptions
         )
-        console.warn('theme change', preferredTheme)
+        //console.warn('theme change', preferredTheme)
       }
       else {
         setUserTheme(window.matchMedia('(prefers-color-scheme:dark)').matches ? 'dark' : 'light')
         cookies.remove(cookieName, { path:cookieOptions.path })
-        console.warn('theme reset')
+        //console.warn('theme reset')
       }
     }
     else {
