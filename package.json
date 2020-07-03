@@ -1,6 +1,6 @@
 {
   "name": "@fwrlines/utils",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "repository": "github:fwrlines/ds",
   "description": "fwrlines Utils",
   "main": "dist/cjs/index.js",
