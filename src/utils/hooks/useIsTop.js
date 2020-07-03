@@ -11,26 +11,33 @@ const useIsTop = (props={}) => {
   const [ isTop, setIsTop ] = useState(initAt)
   const [ loaded, setLoaded ] = useState(false)
 
+  const isClient = !(typeof window === 'undefined')
+
   const {
     //height:currentHeight, //Not Used
     width:currentWidth
   } = useWindowSize()
 
-  const handle = useCallback(
+  const handle = isClient ? useCallback(
     throttle(() => {
       if( loaded ){
         setIsTop(window.scrollY - offsetPx <= 0)
       }
     }, throttleMs),
     [currentWidth, loaded]
-  )
+  ) : null
 
   useEffect(() => {
     setLoaded(true)
-    window.addEventListener('scroll', handle)
+    if(isClient) {
+      window.addEventListener('scroll', handle)
+    }
 
     return () => {
-      window.removeEventListener('scroll', handle)
+      if(isClient) {
+        window.removeEventListener('scroll', handle)
+
+      }
     }
   }, [handle, offsetPx])
 
