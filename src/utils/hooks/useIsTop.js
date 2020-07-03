@@ -1,14 +1,14 @@
-import React, { useMemo, useCallback, useEffect, useState } from 'react'
+import{ useCallback, useEffect, useState } from 'react'
 import throttle from 'lodash.throttle'
 import useWindowSize from './useWindowSize'
 
-export default (
-  {
+const useIsTop = (props={}) => {
+  const {
     offsetPx=0,
     throttleMs=200,
-    initAt=true
-  }
-) => {
+    initAt=true,
+  } = props
+  console.log('in the func')
   const [ isTop, setIsTop ] = useState(initAt)
   const [ loaded, setLoaded ] = useState(false)
 
@@ -37,3 +37,5 @@ export default (
 
   return isTop
 }
+
+export default useIsTop
