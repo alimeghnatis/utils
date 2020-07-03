@@ -8,7 +8,6 @@ const useIsTop = (props={}) => {
     throttleMs=200,
     initAt=true,
   } = props
-  console.log('in the func')
   const [ isTop, setIsTop ] = useState(initAt)
   const [ loaded, setLoaded ] = useState(false)
 
