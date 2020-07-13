@@ -6,16 +6,17 @@ export default () => {
   useLayoutEffect(() => {
 
     // Get original body overflow
+    const isClient = !(typeof window === 'undefined')
+    let originalStyle = isClient ? window.getComputedStyle(document.body).overflow : undefined
 
-    const originalStyle = window.getComputedStyle(document.body).overflow
+    if(isClient){
 
-    // Prevent scrolling on mount
-
-    document.body.style.overflow = 'hidden'
-
+      // Prevent scrolling on mount
+      document.body.style.overflow = 'hidden'
     // Re-enable scrolling when component unmounts
+    }
 
-    return () => document.body.style.overflow = originalStyle
+    return isClient ? () => document.body.style.overflow = originalStyle : () => null
 
   }, []) // Empty array ensures effect is only run on mount and unmount
 

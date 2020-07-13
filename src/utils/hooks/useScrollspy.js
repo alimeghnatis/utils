@@ -14,13 +14,17 @@ export default (
   const [pastIds, setPastIds] = useState(
     idList.slice(0, Math.max(idList.indexOf(activeIdDefault),0))
   )
+
+  //After the change in the context, the content is analyzed before the nodes are rendered, so we account for that by hooking our effect to the print
+  const [loaded, setLoaded] = useState(false)
+
   const {
     //height:currentHeight, //Not Used
     width:currentWidth
   } = useWindowSize()
 
   const scrollValues = useMemo(() => {
-    if (idList.length) {
+    if (idList.length && loaded) {
       const offsetsY = {}
       const currentOffsetY = window.scrollY
       const selectors = idList.reduce((a,e,i) => {
@@ -33,11 +37,20 @@ export default (
       elementArray.forEach((e) =>
         offsetsY[e.id] = Math.floor(e.getBoundingClientRect().y + currentOffsetY)
       )
+      //console.log(offsetsY, idList, selectors, qs, elementArray)
       return offsetsY
     }
 
     else return {}
-  },[idList, currentWidth])
+  },[
+    idList,
+    currentWidth,
+    loaded
+  ])
+
+  useEffect(
+    () => setLoaded(true)
+  )
 
   useEffect(
     () => setActiveId(idList[0]),
