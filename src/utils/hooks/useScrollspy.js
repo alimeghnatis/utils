@@ -24,7 +24,7 @@ export default (
   } = useWindowSize()
 
   const scrollValues = useMemo(() => {
-    if (idList.length && loaded) {
+    if (!(typeof window === 'undefined') && idList.length && loaded) {
       const offsetsY = {}
       const currentOffsetY = window.scrollY
       const selectors = idList.reduce((a,e,i) => {
