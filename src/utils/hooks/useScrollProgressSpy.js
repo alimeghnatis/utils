@@ -8,6 +8,7 @@ export default (
     offsetPx=0,
     contentId=null,
     throttleMs=200,
+    dependencies=[]
   }
 ) => {
   const [ progress, setProgress ] = useState(0)
@@ -89,7 +90,7 @@ export default (
     return () => {
       window.removeEventListener('scroll', handle)
     }
-  }, [handle, offsetPx])
+  }, [handle, offsetPx, ...dependencies])
 
   return {
     progress,
