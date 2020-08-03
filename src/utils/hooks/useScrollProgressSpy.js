@@ -24,8 +24,9 @@ export default (
       const html = document.documentElement
       const clientHeight = html.clientHeight
 
-      if (contentId) {
-        const el = document.getElementById(contentId)
+      const el = document.getElementById(contentId)
+
+      if (contentId && el) {
         const { top, height:elHeight } = el.getBoundingClientRect()
         return {
           start:top - clientHeight,

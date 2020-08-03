@@ -1,5 +1,5 @@
 import { useReducer, useEffect, useCallback } from 'react'
-//import debounce from 'lodash.debounce'
+import debounce from 'lodash.debounce'
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -37,6 +37,11 @@ const reducer = (state, action) => {
         ...action.payload
       }
     }
+  case 'SET_ERRORS':
+    return {
+      ...state,
+      errors:action.payload
+    }
   default:
     return state
   }
@@ -45,17 +50,22 @@ const reducer = (state, action) => {
 export default ({
   initialValues={},
   initialTouched={},
+  initialErrors={},
+  validation={},
+  debounceMs=300,
   ...otherProps
 }) => {
 
   const [state, dispatch] = useReducer(reducer, {
     values:initialValues,
     touched:initialTouched,
+    errors:initialErrors
   })
 
   const {
     values,
-    touched
+    touched,
+    errors:stateErrors
   } = state
 
   const handleChange = fieldName => event => {
@@ -93,7 +103,7 @@ export default ({
   const setInputTouched = handleFocus
 
   const setInputValue = fieldName => value => {
-    console.log('SIV', fieldName, value)
+    //console.log('SIV', fieldName, value)
     dispatch({
       type:'SET_FIELD_VALUE',
       payload: { [fieldName]:value },
@@ -104,6 +114,7 @@ export default ({
     //Base Api
     value: state.values[fieldName],
     touched: state.touched[fieldName],
+    errors: state.touched[fieldName] && state.errors[fieldName],
     onChange: handleChange(fieldName),
     onBlur:handleBlur(fieldName),
     onFocus:handleFocus(fieldName),
@@ -116,21 +127,57 @@ export default ({
     setInputValue:setInputValue(fieldName)
   })
 
-  useEffect(() => {
-    if (otherProps.validate) {
-      const errors = props.validate(state.values)
-      dispatch({
-        type:'SET_ERRORS',
-        payload:errors,
-      })
-    }
+  /*
+   *
+
+  {
+    _all:(fields) => (fields.password !== fields.password2 )&& 'Passwords dont match'
+    password:(value) =>  (value.length < 6) && 'Password is too short'
   }
+   *
+   */
+
+  useEffect(debounce(() => {
+    var errors = {}
+
+    Object.keys(validation).forEach(key => {
+      if (key !== '_all') {
+        const value = state.values[key]
+        const validate = validation[key]
+
+        const localErrors = validate(value)
+
+        if (localErrors) {
+          errors[key] = localErrors
+        }
+      }
+      else {
+        const validate = validation[key]
+        const localErrors = validate(state.values)
+        if (localErrors) {
+          errors[key] = localErrors
+        }
+      }
+    })
+
+    //console.log('Errors will be dispatched', errors)
+
+    dispatch({
+      type:'SET_ERRORS',
+      payload:errors
+    })
+  }, debounceMs),
+  [state.values]
   )
+
+  const isValid = Object.keys(stateErrors).length === 0
 
   return {
     values,
     touched,
+    errors:stateErrors,
     getFieldProps,
+    isValid,
 
     handleChange,
     handleBlur,
