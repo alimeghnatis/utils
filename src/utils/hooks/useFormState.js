@@ -14,14 +14,24 @@ const reducer = (state, action) => {
     }
     */
   case 'SET_FIELD_VALUE':
+    console.log(777, action)
     return {
       ...state,
       values:{
         ...state.values,
         ...action.payload
+      },
+    }
+  case 'SET_PARSED_VALUE':
+    console.log(888, action)
+    return {
+      ...state,
+      parsed:{
+        ...state.parsed,
+        ...action.payload
       }
     }
-  case 'SET_FIELD_MULTIPLE_VALUE':
+  case 'MERGE_VALUES':
     return {
       ...state,
       values:{
@@ -52,19 +62,31 @@ export default ({
   initialTouched={},
   initialErrors={},
   validation={},
+  parsers={},
   debounceMs=300,
   ...otherProps
 }) => {
 
+  const parseValue = (value, name) => {
+    console.log('parsing', name, value, parsers[name])
+  return parsers[name] ? parsers[name](value) : value
+
+  }
+
   const [state, dispatch] = useReducer(reducer, {
     values:initialValues,
     touched:initialTouched,
-    errors:initialErrors
+    errors:initialErrors,
+    parsed:Object.keys(initialValues).reduce((a, e) => {
+      a[e] = parseValue(initialValues[e])
+      return a
+    }, {})
   })
 
   const {
     values,
     touched,
+    parsed,
     errors:stateErrors
   } = state
 
@@ -74,6 +96,10 @@ export default ({
       type:'SET_FIELD_VALUE',
       payload: { [fieldName]:event.target.value },
     })
+    debounce(dispatch({
+      type:'SET_PARSED_VALUE',
+      payload:{ [fieldName]:parseValue(event.target.value, fieldName) },
+    }), debounceMs)
   }
 
   const handleToggle = fieldName => event => {
@@ -88,8 +114,25 @@ export default ({
 
     dispatch({
       type:'SET_FIELD_VALUE',
-      payload: { [fieldName]:valueSet || new Set([valueToToggle]) },
+      payload:{ [fieldName]:valueSet || new Set([valueToToggle]) },
     })
+    debounce(dispatch({
+      type:'SET_PARSED_VALUE',
+      payload:{ [fieldName]:parseValue(valueSet || new Set([valueToToggle]), fieldName) },
+    }), debounceMs)
+  }
+
+  const handleToggleSingle = fieldName => event => {
+    const value = !values[fieldName] //we toggle the previous value
+
+    dispatch({
+      type:'SET_FIELD_VALUE',
+      payload:{ [fieldName]:value },
+    })
+    debounce(dispatch({
+      type:'SET_PARSED_VALUE',
+      payload:{ [fieldName]:parseValue(value, fieldName) }
+    }), debounceMs)
   }
 
   const handleBlur = fieldName => event => {
@@ -106,7 +149,18 @@ export default ({
     //console.log('SIV', fieldName, value)
     dispatch({
       type:'SET_FIELD_VALUE',
-      payload: { [fieldName]:value },
+      payload:{ [fieldName]:value },
+    })
+    debounce(dispatch({
+      type:'SET_PARSED_VALUE',
+      payload:{ [fieldName]:parseValue(value, fieldName) }
+    }), debounceMs)
+  }
+
+  const mergeValues = dictToMerge => {
+    dispatch({
+      type:'MERGE_VALUES',
+      payload: dictToMerge,
     })
   }
 
@@ -121,6 +175,7 @@ export default ({
 
     //Extra Helpers
     onToggle: handleToggle(fieldName), //for multiple value, replaces onChange
+    onToggleSingle: handleToggleSingle(fieldName), //for multiple value, replaces onChange
 
     //Extra Api Control
     setInputTouched:setInputTouched(fieldName),
@@ -173,7 +228,10 @@ export default ({
   const isValid = Object.keys(stateErrors).length === 0
 
   return {
+    setInputValue,
+    mergeValues,
     values,
+    parsed,
     touched,
     errors:stateErrors,
     getFieldProps,
