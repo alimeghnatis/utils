@@ -14,7 +14,7 @@ const reducer = (state, action) => {
     }
     */
   case 'SET_FIELD_VALUE':
-    console.log(777, action)
+    //console.log(777, action)
     return {
       ...state,
       values:{
@@ -23,7 +23,7 @@ const reducer = (state, action) => {
       },
     }
   case 'SET_PARSED_VALUE':
-    console.log(888, action)
+    //console.log(888, action)
     return {
       ...state,
       parsed:{
@@ -68,8 +68,8 @@ export default ({
 }) => {
 
   const parseValue = (value, name) => {
-    console.log('parsing', name, value, parsers[name])
-  return parsers[name] ? parsers[name](value) : value
+    //console.log('parsing', name, value, parsers[name])
+    return parsers[name] ? parsers[name](value) : value
 
   }
 
