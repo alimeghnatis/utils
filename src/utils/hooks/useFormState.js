@@ -192,7 +192,7 @@ export default ({
    *
    */
 
-  useEffect(debounce(() => {
+  useEffect(() => debounce(() => {
     var errors = {}
 
     Object.keys(validation).forEach(key => {

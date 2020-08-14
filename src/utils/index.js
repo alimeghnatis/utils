@@ -1,7 +1,9 @@
 export * from './hooks'
 export { default as urljoin } from './urljoin'
 export { default as Log } from './Log'
-//export { default as clickTo } from './clickTo'
+/* export { default as clickTo } from './clickTo'
+   export { default as compressImage } from './compressImage' */
+export { default as readableFileSize } from './readableFileSize'
 export { default as isEmpty } from './isEmpty'
 export { default as isEmail } from './isEmail'
 export { default as isName } from './isName'

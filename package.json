@@ -46,6 +46,7 @@
     "nodemon": "^2.0.4"
   },
   "dependencies": {
+    "compressorjs": "^1.0.6",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
     "react": "^16.13.1",
