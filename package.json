@@ -17,6 +17,7 @@
     "pre-compile": "echo",
     "pub": "npm version patch && npm publish",
     "prepare": "npm run compile",
+    "postinstall": "node ./scripts/postinstall.js",
     "pre": "npm run prepare",
     "npre": "nodemon --watch src --exec 'npm run build:es && echo done'",
     "commit": "git add . && git commit -m 'Version bump' && git push",
