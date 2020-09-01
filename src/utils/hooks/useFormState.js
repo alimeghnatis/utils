@@ -67,13 +67,14 @@ export default ({
   ...otherProps
 }) => {
 
-  const parseValue = (value, name) => {
+  const parseValue = useCallback((value, name) => {
     //console.log('parsing', name, value, parsers[name])
     return parsers[name] ? parsers[name](value) : value
 
-  }
+  },[]
+  )
 
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, dispatch=()=>null] = useReducer(reducer, {
     values:initialValues,
     touched:initialTouched,
     errors:initialErrors,
@@ -90,7 +91,7 @@ export default ({
     errors:stateErrors
   } = state
 
-  const handleChange = fieldName => event => {
+  const handleChange = useCallback(fieldName => event => {
     event.persist()
     dispatch({
       type:'SET_FIELD_VALUE',
@@ -100,7 +101,7 @@ export default ({
       type:'SET_PARSED_VALUE',
       payload:{ [fieldName]:parseValue(event.target.value, fieldName) },
     }), debounceMs)
-  }
+  }, [debounceMs])
 
   const handleToggle = fieldName => event => {
     event.persist()
@@ -135,27 +136,29 @@ export default ({
     }), debounceMs)
   }
 
-  const handleBlur = fieldName => event => {
+  const handleBlur = useCallback(fieldName => event => {
     dispatch({
       type:'SET_FIELD_TOUCHED',
       payload: { [fieldName]:true },
     })
-  }
+  }, [])
   const handleFocus = handleBlur //atm they're the same but lets leave the api evolve
 
   const setInputTouched = handleFocus
 
-  const setInputValue = fieldName => value => {
+  const setInputValue = useCallback(fieldName => value => {
     //console.log('SIV', fieldName, value)
     dispatch({
       type:'SET_FIELD_VALUE',
       payload:{ [fieldName]:value },
     })
-    debounce(dispatch({
+    dispatch({
       type:'SET_PARSED_VALUE',
       payload:{ [fieldName]:parseValue(value, fieldName) }
-    }), debounceMs)
-  }
+    })
+  },
+  [parseValue]
+  )
 
   const mergeValues = dictToMerge => {
     dispatch({
