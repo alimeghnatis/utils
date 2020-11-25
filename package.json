@@ -50,7 +50,7 @@
     "compressorjs": "^1.0.6",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
-    "react": "^16.13.1",
+    "react": "^17.0.1",
     "universal-cookie": "^4.0.3"
   }
 }
