@@ -29,8 +29,8 @@ export default (
       if (contentId && el) {
         const { top, height:elHeight } = el.getBoundingClientRect()
         return {
-          start:top - clientHeight,
-          end:top + elHeight - clientHeight
+          start:top, // - clientHeight,
+          end:top + elHeight - (clientHeight/2) //opinionated. End is at the middle of the screen
         }
       }
 
@@ -77,6 +77,8 @@ export default (
         ),
         0
       )
+      console.log(currentPosition)
+      console.log(currentProgress, (currentPosition - start), (end-start), start, end)
       /* console.log('From ', start, ' to ', end)
          console.log('Current', currentPosition, currentProgress) */
       setProgress(Math.ceil(currentProgress * 1000) / 10)
