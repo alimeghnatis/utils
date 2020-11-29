@@ -77,8 +77,6 @@ export default (
         ),
         0
       )
-      console.log(currentPosition)
-      console.log(currentProgress, (currentPosition - start), (end-start), start, end)
       /* console.log('From ', start, ' to ', end)
          console.log('Current', currentPosition, currentProgress) */
       setProgress(Math.ceil(currentProgress * 1000) / 10)
