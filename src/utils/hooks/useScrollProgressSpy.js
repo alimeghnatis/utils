@@ -29,8 +29,8 @@ export default (
       if (contentId && el) {
         const { top, height:elHeight } = el.getBoundingClientRect()
         return {
-          start:top - clientHeight,
-          end:top + elHeight - clientHeight
+          start:top, // - clientHeight,
+          end:top + elHeight - clientHeight,
         }
       }
 
