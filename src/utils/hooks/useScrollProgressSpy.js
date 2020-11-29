@@ -30,7 +30,7 @@ export default (
         const { top, height:elHeight } = el.getBoundingClientRect()
         return {
           start:top, // - clientHeight,
-          end:top + elHeight - (clientHeight/2) //opinionated. End is at the middle of the screen
+          end:top + elHeight - clientHeight,
         }
       }
 
