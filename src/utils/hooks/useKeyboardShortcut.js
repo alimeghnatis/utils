@@ -8,6 +8,10 @@ export default (
     requireCtrlKey=false,
     requireAltKey=false,
     requireShiftKey=false,
+  }={
+    requireCtrlKey:false,
+    requireAltKey:false,
+    requireShiftKey:false
   }
 ) => {
   const isClient = typeof window === 'object'
