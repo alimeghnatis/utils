@@ -5,7 +5,7 @@ export default (number, pattern) => {
   let patPointer = 0
   let numberPointer = 0
 
-  while (numberPointer < number.length) {
+  while (numberPointer < numberToSpace.length) {
     const currentDigit = numberToSpace[numberPointer]
     const currentChar = pattern[patPointer]
 
