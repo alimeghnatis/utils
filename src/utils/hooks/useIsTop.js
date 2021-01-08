@@ -13,6 +13,7 @@ const useIsTop = (props={}) => {
 
   const isClient = !(typeof window === 'undefined')
 
+
   const {
     //height:currentHeight, //Not Used
     width:currentWidth
